@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PD-INSPECT</title>
+    <link
+      rel="icon"
+      href="https://www.pngall.com/wp-content/uploads/5/Vector-Checklist-PNG-HD-Image.png"
+      type="image/png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css"
+    />
+
+    <link rel="stylesheet" href="./static/loader.css" />
+    <link rel="stylesheet" href="./static/custom.css" />
+    <link rel="stylesheet" href="./static/progressbar.css" />
+    <link rel="stylesheet" href="./static/selectStyles.css" />
+  </head>
+  <body>
+    <!-- Loading -->
+
+    <div
+      id="fullPageLoader"
+      class="loader-mask modal justify-content-center align-items-center flex-column"
+    >
+      <main>
+        <svg
+          class="ip"
+          viewBox="0 0 256 128"
+          width="256px"
+          height="128px"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#5ebd3e" />
+              <stop offset="33%" stop-color="#ffb900" />
+              <stop offset="67%" stop-color="#f78200" />
+              <stop offset="100%" stop-color="#e23838" />
+            </linearGradient>
+            <linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0%" stop-color="#e23838" />
+              <stop offset="33%" stop-color="#973999" />
+              <stop offset="67%" stop-color="#009cdf" />
+              <stop offset="100%" stop-color="#5ebd3e" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke-linecap="round" stroke-width="16">
+            <g class="ip__track" stroke="#ddd">
+              <path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56" />
+              <path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64" />
+            </g>
+            <g stroke-dasharray="180 656">
+              <path
+                class="ip__worm1"
+                stroke="url(#grad1)"
+                stroke-dashoffset="0"
+                d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"
+              />
+              <path
+                class="ip__worm2"
+                stroke="url(#grad2)"
+                stroke-dashoffset="358"
+                d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"
+              />
+            </g>
+          </g>
+        </svg>
+      </main>
+      <p class="loader-text">Loading</p>
+    </div>
+
+    <!--
+   ███╗   ███╗ ██████╗ ██████╗  █████╗ ██╗
+   ████╗ ████║██╔═══██╗██╔══██╗██╔══██╗██║
+   ██╔████╔██║██║   ██║██║  ██║███████║██║
+   ██║╚██╔╝██║██║   ██║██║  ██║██╔══██║██║
+   ██║ ╚═╝ ██║╚██████╔╝██████╔╝██║  ██║███████╗
+   ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+  -->
+    <div
+      tabindex="-1"
+      role="dialog"
+      id="resultModal"
+      data-backdrop="static"
+      class="modal fade"
+      aria-labelledby="resultModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resultModalLabel"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div
+            class="modal-body d-flex align-items-center flex-column"
+            id="resultModalBody"
+          ></div>
+          <div class="modal-footer" id="resultModalFooter">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+
+      ███████╗ ██████╗ ██████╗ ███╗   ███╗
+      ██╔════╝██╔═══██╗██╔══██╗████╗ ████║
+      █████╗  ██║   ██║██████╔╝██╔████╔██║
+      ██╔══╝  ██║   ██║██╔══██╗██║╚██╔╝██║
+      ██║     ╚██████╔╝██║  ██║██║ ╚═╝ ██║
+      ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝
+
+     -->
+    <div class="py-2 text-center" style="background-color: #0b4f58">
+      <h2 style="color: #d3dfe0">PD-INSPECT</h2>
+      <p class="lead" style="color: #e3e3e3">
+        Parkinson's Disease- Integrated Non-motor Symptom-based Prediction and Evaluation using Computational Tool
+      </p>
+    </div>
+    <hr />
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4 right-sidebar">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Tests or symptoms added</span>
+            <span class="badge badge-secondary badge-pill factors-count"
+              >0</span
+            >
+          </h4>
+          <ul class="list-group mb-3" id="listOfRisks"></ul>
+        </div>
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Risk assessment form</h4>
+          <form novalidate="" class="needs-validation" id="pdpForm">
+            <!-- Name -->
+            <div class="mb-3">
+              <strong for="username"
+                >Name <span class="text-muted">(Optional)</span></strong
+              >
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="username"
+                  autocomplete="off"
+                  placeholder="Name"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- Gender -->
+              <div class="col-md-6 mb-3">
+                <strong for="firstName">Gender</strong>
+                <div class="form-group">
+                  <div class="form-check form-check-inline">
+                    <input
+                      id="Male"
+                      type="radio"
+                      name="gender"
+                      value="Male"
+                      class="form-check-input"
+                    />
+                    <label class="form-check-label" for="Male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      id="Female"
+                      type="radio"
+                      name="gender"
+                      class="form-check-input"
+                      value="Female"
+                    />
+                    <label class="form-check-label" for="Female">Female</label>
+                  </div>
+                </div>
+                <div class="invalid-feedback">Valid name is required.</div>
+              </div>
+              <!-- Age -->
+              <div class="col-md-6 mb-3">
+                <strong for="Age">Age</strong>
+                <input
+                  min="1"
+                  id="Age"
+                  value=""
+                  max="120"
+                  required=""
+                  type="number"
+                  class="form-control"
+                  placeholder="Enter your age in years"
+                />
+                <div class="invalid-feedback">Valid last name is required.</div>
+              </div>
+            </div>
+
+            <hr class="mb-4" />
+
+            <!-- SWS add new factor START-->
+            <div class="form-group row" id="swsTopEl">
+              <div class="col-12 mb-2">
+                <strong>Add tests or symptoms </strong>
+                <span class="text-muted">(minimum 10 required)</span>
+              </div>
+              <div class="col-6 mb-3 mb-sm-5 selectpicker-wrp">
+                <div class="select-box selectpicker">
+                  <div class="selected-item" title="Select a test or symptom">
+                    <span class="selected-item-label">
+                      Select a test or symptom
+                    </span>
+                    <span class="caret"></span>
+                  </div>
+                  <div class="select-items hidden" id="selectOptionsContainer">
+                    <!-- Options are dynamically inserted on document.ready-->
+                  </div>
+                  <input
+                    type="text"
+                    class="select-search hidden"
+                    placeholder="Search..."
+                  />
+                </div>
+                <label
+                  class="text-danger small font-weight-bold error-helper"
+                  for="swsFactors"
+                >
+                </label>
+              </div>
+              <div class="col-6 mb-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  onclick="addNewFactor(this)"
+                >
+                  Add this factor
+                </button>
+                <span class="text-muted small ml-2" style="white-space:nowrap;vertical-align:middle;">
+                  <span class="badge badge-secondary badge-pill factors-count">0</span> added
+                </span>
+              </div>
+            </div>
+            <!-- SWS add new factor ENDS -->
+
+            <button
+              class="btn btn-info btn-lg btn-block"
+              type="submit"
+              id="submitFormCTA"
+            >
+              Calculate my risk profile
+            </button>
+
+            <button
+              class="btn btn-lg btn-block"
+              id="resetButton"
+              onclick="resetForm"
+            >
+              Reset
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">© 2026 PD-INSPECT</p>
+        <ul class="list-inline">
+          <li
+            class="list-inline-item"
+            onclick="showDataModal(this);"
+            data-info="<p>Parkinson's disease (PD) is a progressive neurodegenerative disorder in which non-motor symptoms (NMS); including sleep disturbances, autonomic dysfunction, mood changes, cognitive complaints, and olfactory dysfunction; may precede classical motor signs by several years. This long prediagnostic interval motivates risk-stratification approaches capable of operating before formal motor-based diagnosis, supporting research screening, referral triage, and enriched cohort recruitment.</p><p>PD-INSPECT is a stacked ensemble prediction system designed to estimate PD risk using NMS-centric clinical inputs derived from the Parkinson's Progression Marker Initiative (PPMI). It integrates three complementary sub-models: M1, a feature-level ensemble (LR, SVM &amp; XGB per feature) robust to missingness; M2, a global multivariate XGBoost model capturing cross-feature interactions; and M3, a similarity-based collaborative filtering module using cosine, Pearson &amp; Euclidean metrics. These are combined via a logistic regression meta-learner with strict patient-level leakage control. The system returns a final probability estimate with an interpretable confidence score.</p><p>The project is developed at Dr. Pankaj Singh Dholaniya's laboratory, Department of Biotechnology &amp; Bioinformatics, School of Life Sciences, University of Hyderabad, India. This work forms part of the doctoral thesis of Mr. Md Zainul Ali.</p>"
+          >
+            About
+          </li>
+          <li
+            class="list-inline-item"
+            onclick="showDataModal(this);"
+            data-info="<p>PD-INSPECT was developed using data from the Parkinson's Progression Marker Initiative (PPMI), a longitudinal, multi-centre observational study. The input space comprises age, sex, and 44 NMS-centric clinical features spanning cognitive tests, autonomic symptom scales, sleep measures, mood and anxiety scales, and olfaction. Class labels were derived from the PPMI clinical diagnosis field (APPRDX=1 for PD, APPRDX=2 for healthy control).</p><p>Two datasets were constructed: Dataset-A (for M1 and M2) contains visit-level instances from 725 unique participants in training and 182 in the held-out test set (142 PD, 40 controls). Dataset-B (for M3) uses participant-level profiles requiring at least 22 features, aggregated by per-visit mean. All splitting and cross-validation were performed at the patient level to prevent data leakage.</p><p><b>Performance on the held-out test set (n=182):</b><br/>AUC: 0.957 &nbsp;&middot;&nbsp; Sensitivity: 0.930 &nbsp;&middot;&nbsp; Specificity: 0.900<br/>Precision: 0.971 &nbsp;&middot;&nbsp; F1-score: 0.950 &nbsp;&middot;&nbsp; Balanced Accuracy: 0.915 &nbsp;&middot;&nbsp; Brier Score: 0.062</p>"
+          >
+            Data
+          </li>
+          <li
+            class="list-inline-item"
+            onclick="showDataModal(this);"
+            data-info="PD-INSPECT is an academic research tool developed for research-oriented screening and risk stratification only. It is NOT intended as a clinical diagnostic tool and does NOT replace professional medical evaluation. The system was designed to operate under partial input; however, providing at least 10 features is strongly recommended for stable and reliable results. The confidence score reported by PD-INSPECT serves interpretive purposes only and does not constitute a clinically validated uncertainty estimate; it reflects the distance from the decision boundary and agreement between sub-models. Predictions are subject to inherent model limitations including calibration uncertainty, input incompleteness, and the constraints of the PPMI training cohort. PD-INSPECT aligns with TRIPOD and PROBAST guidelines for transparent prediction model reporting, but its outputs should be interpreted with caution. If you have any concerns about your health or suspect Parkinson's disease, please consult a qualified neurologist. The developers of PD-INSPECT hold no responsibility for any misinterpretation or reliance on the model's outputs. Users must exercise their own clinical and scientific judgment. PD-INSPECT and the accompanying website are provided 'as is' without any guarantees or warranties. All rights are reserved by the developers."
+          >
+            Disclaimer
+          </li>
+          <li
+            class="list-inline-item"
+            onclick="showDataModal(this);"
+            data-info="&lt;b&gt;How to use PD-INSPECT&lt;/b&gt;&lt;br/&gt;&lt;ol&gt;&lt;li&gt;Enter your &lt;b&gt;Name&lt;/b&gt; (optional), select &lt;b&gt;Gender&lt;/b&gt;, and enter your &lt;b&gt;Age&lt;/b&gt;.&lt;/li&gt;&lt;li&gt;Use the dropdown to add &lt;b&gt;at least 10 non-motor tests or symptoms&lt;/b&gt;. Each added item shows a slider, adjust it to reflect your score for that test.&lt;/li&gt;&lt;li&gt;Click &lt;b&gt;Calculate my risk profile&lt;/b&gt;.&lt;/li&gt;&lt;/ol&gt;&lt;b&gt;Results include:&lt;/b&gt;&lt;br/&gt;• &lt;b&gt;Risk Profile&lt;/b&gt; — High Risk (PD) or Low Risk (Healthy)&lt;br/&gt;• &lt;b&gt;Final Probability&lt;/b&gt; — ensemble-derived P(PD) from M1 (Feature-Stacker), M2 (XGBoost Global), and M3 (Collaborative Filter)&lt;br/&gt;• &lt;b&gt;Confidence Score&lt;/b&gt; — 0.70 &amp;times; probability margin + 0.30 &amp;times; model consensus, categorised as High, Moderate, Low, or Very Low&lt;br/&gt;• &lt;b&gt;Full Report &amp;amp; PDF&lt;/b&gt; — per-model probabilities, sub-model votes, and a downloadable PDF report including patient details&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Note:&lt;/b&gt; A minimum of 10 features is required. This is a research-grade screening tool and does not constitute a clinical diagnosis. Consult a qualified neurologist for medical evaluation."
+          >
+            Guide
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <!--
+  ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗███████╗
+  ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝██╔════╝
+  ███████╗██║     ██████╔╝██║██████╔╝   ██║   ███████╗
+  ╚════██║██║     ██╔══██╗██║██╔═══╝    ██║   ╚════██║
+  ███████║╚██████╗██║  ██║██║██║        ██║   ███████║
+  ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ╚══════╝
+ -->
+    <script src="./static/factorsConfig.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="./static/customJS.js"></script>
+  </body>
+</html>
