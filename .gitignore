@@ -1,0 +1,32 @@
+# PPMI data must never be committed (PPMI Data Use Agreement)
+data/source/
+Train/
+Test/
+*.xlsx
+web_app/saved_models/sample_bank.json
+# the trained pipeline holds PPMI-derived training profiles (M3)
+web_app/saved_models/pipeline.joblib
+*.joblib
+
+# Generated outputs that contain per-participant rows
+**/oof_predictions_*.csv
+**/test_predictions_*.csv
+**/pdonly_waves_heldout.csv
+**/dummy_predictions.csv
+M1_Variant_Results/
+M2_Variant_Results/
+M3_Variant_Results/
+Meta_Stacker_Results/
+SHAP_Results/
+/saved_models/
+patient_harmonisation/results/
+/patient_harmonisation/saved_models/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+
+# deploy bundles contain the trained pipeline (PPMI-derived profiles)
+*.zip

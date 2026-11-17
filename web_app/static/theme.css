@@ -1,0 +1,723 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   PD-INSPECT theme support: System / Light / Dark
+   Loaded last so it can override Bootstrap and the older stylesheets.
+
+   The active theme lives in  <html data-theme="system|light|dark">.
+   "system" follows the operating system via prefers-color-scheme.
+   Nothing here changes layout, only colours.
+   ────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --pd-bg: #ffffff;
+  --pd-surface: #ffffff;
+  --pd-surface-2: #f8f9fa;
+  --pd-text: #212529;
+  --pd-text-2: #555555;
+  --pd-muted: #6c757d;
+  --pd-border: #dee2e6;
+  --pd-border-strong: #bbbbbb;
+  --pd-input-bg: #ffffff;
+  --pd-input-text: #212529;
+  --pd-select-bg: #e9ecef;
+  --pd-select-hover: #EEEBFB;
+  --pd-header-bg: #2E3A59;
+  --pd-header-text: #DCD6F7;
+  --pd-accent: #2E3A59;
+  --pd-shadow: rgba(0, 0, 0, 0.12);
+}
+
+/* Explicit dark choice */
+html[data-theme="dark"] {
+  --pd-bg: #16191c;
+  --pd-surface: #1e2226;
+  --pd-surface-2: #262b30;
+  --pd-text: #e6e9ec;
+  --pd-text-2: #c2c8ce;
+  --pd-muted: #9aa3ab;
+  --pd-border: #343a40;
+  --pd-border-strong: #454c53;
+  --pd-input-bg: #23282d;
+  --pd-input-text: #e6e9ec;
+  --pd-select-bg: #2b3137;
+  --pd-select-hover: #33404a;
+  --pd-header-bg: #232C45;
+  --pd-header-text: #DCD6F7;
+  --pd-accent: #36C2D3;
+  --pd-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* "System": follow the OS setting */
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] {
+    --pd-bg: #16191c;
+    --pd-surface: #1e2226;
+    --pd-surface-2: #262b30;
+    --pd-text: #e6e9ec;
+    --pd-text-2: #c2c8ce;
+    --pd-muted: #9aa3ab;
+    --pd-border: #343a40;
+    --pd-border-strong: #454c53;
+    --pd-input-bg: #23282d;
+    --pd-input-text: #e6e9ec;
+    --pd-select-bg: #2b3137;
+    --pd-select-hover: #33404a;
+    --pd-header-bg: #232C45;
+    --pd-header-text: #DCD6F7;
+    --pd-accent: #36C2D3;
+    --pd-shadow: rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ── Base surfaces ─────────────────────────────────────────────────────── */
+body {
+  background-color: var(--pd-bg);
+  color: var(--pd-text);
+}
+
+hr {
+  border-top-color: var(--pd-border);
+}
+
+.right-sidebar {
+  border-left-color: var(--pd-border-strong);
+}
+
+.text-muted {
+  color: var(--pd-muted) !important;
+}
+
+/* ── Form controls ─────────────────────────────────────────────────────── */
+.form-control,
+.form-control:focus {
+  background-color: var(--pd-input-bg);
+  color: var(--pd-input-text);
+  border-color: var(--pd-border);
+}
+
+.form-control::placeholder {
+  color: var(--pd-muted);
+  opacity: 1;
+}
+
+.input-group-text {
+  background-color: var(--pd-surface-2);
+  color: var(--pd-text);
+  border-color: var(--pd-border);
+}
+
+/* ── Lists, cards, modals ──────────────────────────────────────────────── */
+.list-group-item {
+  background-color: var(--pd-surface);
+  color: var(--pd-text);
+  border-color: var(--pd-border);
+}
+
+.modal-content {
+  background-color: var(--pd-surface);
+  color: var(--pd-text);
+  border-color: var(--pd-border);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--pd-border);
+}
+
+.modal-header .close {
+  color: var(--pd-text);
+  text-shadow: none;
+  opacity: 0.8;
+}
+
+/* ── Custom select (selectStyles.css) ──────────────────────────────────── */
+.select-box {
+  background-color: var(--pd-select-bg);
+  border-color: var(--pd-border-strong);
+  color: var(--pd-text);
+  /* The whole select sits above the sticky submit bar (z-index 5), so an open
+     list is never cut in half by it. */
+  position: relative;
+  z-index: 30;
+}
+
+.select-items {
+  background: var(--pd-surface);
+  border-color: var(--pd-border);
+  color: var(--pd-text);
+  z-index: 30;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 10px 24px -12px var(--pd-shadow);
+}
+
+.select-item:hover {
+  background-color: var(--pd-select-hover);
+}
+
+.select-items input,
+.select-box input[type="text"] {
+  background-color: var(--pd-input-bg);
+  color: var(--pd-input-text);
+  border-color: var(--pd-border);
+}
+
+.info-feature:hover {
+  background: var(--pd-select-hover);
+}
+
+/* ── Header band + theme switcher ──────────────────────────────────────── */
+.pd-header {
+  position: relative;
+  background-color: var(--pd-header-bg) !important;
+}
+
+.pd-theme-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+@media (min-width: 768px) {
+  .pd-theme-switch {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+  }
+}
+
+.pd-theme-switch button {
+  border: 0;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pd-header-text);
+}
+
+.pd-theme-switch button:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pd-theme-switch button[aria-pressed="true"] {
+  background: #ffffff;
+  color: #2E3A59;
+  font-weight: 700;
+}
+
+/* ── Result modal: neutralise the inline light colours used by customJS ──
+   Those styles are written inline by the report builder, so they need
+   !important here. Light mode is unaffected.                              */
+html[data-theme="dark"] #resultModalBody [style*="#f8f9fa"],
+html[data-theme="dark"] #dataModalBody [style*="#f8f9fa"] {
+  background: var(--pd-surface-2) !important;
+}
+
+html[data-theme="dark"] #resultModalBody [style*="color:#555"],
+html[data-theme="dark"] #resultModalBody [style*="color:#666"],
+html[data-theme="dark"] #resultModalBody [style*="color:#333"],
+html[data-theme="dark"] #resultModalBody [style*="color:#888"],
+html[data-theme="dark"] #resultModalBody [style*="color:#999"],
+html[data-theme="dark"] #resultModalBody [style*="color:#aaa"],
+html[data-theme="dark"] #resultModalBody [style*="color:#bbb"] {
+  color: var(--pd-text-2) !important;
+}
+
+html[data-theme="dark"] #resultModalBody hr {
+  border-top-color: var(--pd-border) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] #resultModalBody [style*="#f8f9fa"],
+  html[data-theme="system"] #dataModalBody [style*="#f8f9fa"] {
+    background: var(--pd-surface-2) !important;
+  }
+
+  html[data-theme="system"] #resultModalBody [style*="color:#555"],
+  html[data-theme="system"] #resultModalBody [style*="color:#666"],
+  html[data-theme="system"] #resultModalBody [style*="color:#333"],
+  html[data-theme="system"] #resultModalBody [style*="color:#888"],
+  html[data-theme="system"] #resultModalBody [style*="color:#999"],
+  html[data-theme="system"] #resultModalBody [style*="color:#aaa"],
+  html[data-theme="system"] #resultModalBody [style*="color:#bbb"] {
+    color: var(--pd-text-2) !important;
+  }
+
+  html[data-theme="system"] #resultModalBody hr {
+    border-top-color: var(--pd-border) !important;
+  }
+}
+
+/* Feature info images sit on white in the source material; keep them readable */
+html[data-theme="dark"] .info-img,
+html[data-theme="system"] .info-img {
+  background: #ffffff;
+  border-radius: 6px;
+}
+
+/* ── Dark mode: Bootstrap buttons and remaining low-contrast bits ────────────
+   Grouped in a mixin-style block that is repeated for the explicit dark choice
+   and for "system" under a dark OS, because CSS has no way to share the two. */
+
+html[data-theme="dark"] .btn-secondary,
+html[data-theme="dark"] .modal-footer .btn-secondary {
+  background-color: #3a4249;
+  border-color: #4b545c;
+  color: #f1f3f5;
+}
+
+html[data-theme="dark"] .btn-secondary:hover,
+html[data-theme="dark"] .btn-secondary:focus {
+  background-color: #49525a;
+  border-color: #5b656e;
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .btn-outline-secondary {
+  color: #cdd3d9;
+  border-color: #5b656e;
+}
+
+html[data-theme="dark"] .btn-outline-secondary:hover {
+  background-color: #3a4249;
+  color: #ffffff;
+  border-color: #6b757e;
+}
+
+html[data-theme="dark"] .btn-outline-primary {
+  color: #36C2D3;
+  border-color: #577399;
+}
+
+html[data-theme="dark"] .btn-outline-primary:hover {
+  background-color: #14555f;
+  color: #ffffff;
+  border-color: #36C2D3;
+}
+
+html[data-theme="dark"] .badge-secondary {
+  background-color: #4b545c;
+  color: #f1f3f5;
+}
+
+html[data-theme="dark"] .close,
+html[data-theme="dark"] .close:hover {
+  color: #f1f3f5;
+  opacity: 1;
+}
+
+html[data-theme="dark"] .modal-header,
+html[data-theme="dark"] .modal-footer {
+  background-color: #23282d;
+}
+
+html[data-theme="dark"] .text-muted,
+html[data-theme="dark"] small.text-muted {
+  color: #a8b0b8 !important;
+}
+
+html[data-theme="dark"] #resultModalBody [style*="color:#F07569"] {
+  color: #F4948A !important;   /* PD red, lifted for dark backgrounds */
+}
+
+html[data-theme="dark"] #resultModalBody [style*="color:#4FA77F"] {
+  color: #84CDAC !important;   /* healthy mint, lifted for dark backgrounds */
+}
+
+html[data-theme="dark"] #resultModalBody table,
+html[data-theme="dark"] #resultModalBody td {
+  color: var(--pd-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .btn-secondary,
+  html[data-theme="system"] .modal-footer .btn-secondary {
+    background-color: #3a4249;
+    border-color: #4b545c;
+    color: #f1f3f5;
+  }
+
+  html[data-theme="system"] .btn-secondary:hover,
+  html[data-theme="system"] .btn-secondary:focus {
+    background-color: #49525a;
+    border-color: #5b656e;
+    color: #ffffff;
+  }
+
+  html[data-theme="system"] .btn-outline-secondary {
+    color: #cdd3d9;
+    border-color: #5b656e;
+  }
+
+  html[data-theme="system"] .btn-outline-secondary:hover {
+    background-color: #3a4249;
+    color: #ffffff;
+    border-color: #6b757e;
+  }
+
+  html[data-theme="system"] .btn-outline-primary {
+    color: #36C2D3;
+    border-color: #577399;
+  }
+
+  html[data-theme="system"] .btn-outline-primary:hover {
+    background-color: #14555f;
+    color: #ffffff;
+    border-color: #36C2D3;
+  }
+
+  html[data-theme="system"] .badge-secondary {
+    background-color: #4b545c;
+    color: #f1f3f5;
+  }
+
+  html[data-theme="system"] .close,
+  html[data-theme="system"] .close:hover {
+    color: #f1f3f5;
+    opacity: 1;
+  }
+
+  html[data-theme="system"] .modal-header,
+  html[data-theme="system"] .modal-footer {
+    background-color: #23282d;
+  }
+
+  html[data-theme="system"] .text-muted,
+  html[data-theme="system"] small.text-muted {
+    color: #a8b0b8 !important;
+  }
+
+  html[data-theme="system"] #resultModalBody [style*="color:#F07569"] {
+    color: #F4948A !important;
+  }
+
+  html[data-theme="system"] #resultModalBody [style*="color:#4FA77F"] {
+    color: #84CDAC !important;
+  }
+
+  html[data-theme="system"] #resultModalBody table,
+  html[data-theme="system"] #resultModalBody td {
+    color: var(--pd-text);
+  }
+}
+
+/* Danger outline button (Clear all): Bootstrap's red is too dark on a dark page */
+html[data-theme="dark"] .btn-outline-danger {
+  color: #F4948A;
+  border-color: #B05F9B;
+}
+
+html[data-theme="dark"] .btn-outline-danger:hover {
+  background-color: #5E3448;
+  border-color: #F07569;
+  color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .btn-outline-danger {
+    color: #F4948A;
+    border-color: #B05F9B;
+  }
+
+  html[data-theme="system"] .btn-outline-danger:hover {
+    background-color: #5E3448;
+    border-color: #F07569;
+    color: #ffffff;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Small visual polish (both themes). Colour and spacing only - no layout moves.
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Quick-fill row: even spacing without per-button margin classes */
+.pd-random-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+}
+
+/* Buttons: slightly softer corners and a gentle hover lift */
+.btn {
+  border-radius: 6px;
+  transition: background-color .15s ease, border-color .15s ease,
+              color .15s ease, box-shadow .15s ease, transform .08s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus,
+.btn.focus {
+  box-shadow: 0 0 0 .18rem rgba(11, 79, 88, .28);
+}
+
+/* Sliders and radios pick up the brand colour instead of browser blue */
+input[type="range"],
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: var(--pd-accent);
+}
+
+input.form-control-range.factors-input {
+  height: 22px;
+}
+
+.form-control:focus {
+  border-color: var(--pd-accent);
+  box-shadow: 0 0 0 .16rem rgba(11, 79, 88, .18);
+}
+
+/* Counter badge in the brand colour, a little easier to read */
+.badge.factors-count,
+.badge-secondary.factors-count {
+  background-color: var(--pd-accent);
+  color: #ffffff;
+  font-size: 85%;
+  padding: .35em .6em;
+}
+
+/* Sidebar: tighter rows with a soft hover */
+#listOfRisks ~ .list-group-item,
+.list-group-item {
+  border-radius: 6px;
+  margin-bottom: 4px;
+  transition: background-color .15s ease;
+}
+
+.list-group-item:hover {
+  background-color: var(--pd-surface-2);
+}
+
+/* The factor rows: a light separator so long lists stay scannable */
+.form-group[id^="container"] {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--pd-border);
+}
+
+.form-group[id^="container"] label {
+  margin-bottom: .35rem;
+}
+
+/* Remove / info icons: same size, aligned, clearer on hover */
+.remove-feature,
+.info-feature {
+  opacity: .75;
+  transition: opacity .15s ease;
+}
+
+.remove-feature:hover,
+.info-feature:hover {
+  opacity: 1;
+}
+
+/* Submit button: a touch more presence */
+#submitFormCTA {
+  font-weight: 600;
+  letter-spacing: .2px;
+  border-radius: 8px;
+}
+
+/* Header: slightly tighter lead line so the band is not so tall */
+.pd-header .lead {
+  font-size: 1rem;
+  margin-bottom: .25rem;
+}
+
+/* Dark mode: the brand focus ring needs to be lighter to be visible */
+html[data-theme="dark"] .btn:focus,
+html[data-theme="dark"] .form-control:focus {
+  box-shadow: 0 0 0 .18rem rgba(54, 194, 211, .30);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .btn:focus,
+  html[data-theme="system"] .form-control:focus {
+    box-shadow: 0 0 0 .18rem rgba(54, 194, 211, .30);
+  }
+}
+
+/* Quick-fill buttons: compact enough to stay on one line inside the half column */
+.pd-random-row .btn {
+  padding: .25rem .55rem;
+  font-size: .8rem;
+  white-space: nowrap;
+}
+
+/* ── Sticky submit bar ──────────────────────────────────────────────────────
+   The factor list grows to 30 rows, so the call to action used to sit far below
+   the fold. It now sticks to the bottom of the viewport while the form scrolls,
+   and settles in place at the end of the form. */
+.pd-submit-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  padding: 10px 0 12px;
+  margin-top: 8px;
+  background: var(--pd-bg);
+  box-shadow: 0 -8px 12px -8px var(--pd-shadow);
+}
+
+#submitFormCTA {
+  margin-bottom: 0;
+}
+
+/* On very short screens the bar would eat the form; release it there */
+@media (max-height: 420px) {
+  .pd-submit-bar {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+/* ── Submit button: dulled until the 16-factor inclusion rule is met ───────── */
+#submitFormCTA {
+  transition: opacity .15s ease, filter .15s ease;
+}
+#submitFormCTA.pd-cta-idle {
+  opacity: .45;
+  filter: grayscale(.85);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+#submitFormCTA.pd-cta-idle:hover,
+#submitFormCTA.pd-cta-idle:focus {
+  opacity: .55;   /* still reacts, so it does not look broken */
+}
+.pd-submit-hint {
+  min-height: 1.1em;
+  margin-top: 5px;
+  text-align: center;
+  font-size: .82rem;
+  color: var(--pd-muted);
+}
+
+/* ── Project palette for Bootstrap controls ─────────────────────────────────
+   coral #F07569 · cyan #36C2D3 · sand #F2CC8F · mint #84CDAC · slate #577399
+   lavender #DCD6F7 · plum #B05F9B · peach #E3A687 · ink #2E3A59            */
+.btn-info, .btn-info.disabled, .btn-info:disabled {
+  background-color: #577399; border-color: #577399; color: #fff;
+}
+.btn-info:hover, .btn-info:focus, .btn-info:not(:disabled):not(.disabled):active {
+  background-color: #2E3A59; border-color: #2E3A59; color: #fff;
+}
+.btn-outline-danger { color: #D85F54; border-color: #F07569; }
+.btn-outline-danger:hover, .btn-outline-danger:not(:disabled):not(.disabled):active {
+  background-color: #F07569; border-color: #F07569; color: #fff;
+}
+.btn-outline-secondary:hover { background-color: #577399; border-color: #577399; color: #fff; }
+.badge-secondary { background-color: #2E3A59; }
+input[type="range"], input[type="radio"], input[type="checkbox"] { accent-color: #577399; }
+.text-danger { color: #D85F54 !important; }
+a { color: #577399; }
+html[data-theme="dark"] .btn-outline-danger { color: #F4948A; }
+html[data-theme="dark"] input[type="range"], html[data-theme="dark"] input[type="radio"] { accent-color: #36C2D3; }
+html[data-theme="dark"] a { color: #36C2D3; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .btn-outline-danger { color: #F4948A; }
+  html[data-theme="system"] input[type="range"], html[data-theme="system"] input[type="radio"] { accent-color: #36C2D3; }
+  html[data-theme="system"] a { color: #36C2D3; }
+}
+/* Ink-coloured text in the result modal stays readable on dark backgrounds */
+html[data-theme="dark"] #resultModalBody [style*="color:#2E3A59"] { color: #DCD6F7 !important; }
+html[data-theme="dark"] #resultModalBody [style*="solid #2E3A59"] { border-color: #577399 !important; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] #resultModalBody [style*="color:#2E3A59"] { color: #DCD6F7 !important; }
+  html[data-theme="system"] #resultModalBody [style*="solid #2E3A59"] { border-color: #577399 !important; }
+}
+
+/* ── Row action icons (remove, about): round outline buttons ──────────────── */
+.pd-icon-btn {
+  display: inline-flex !important; align-items: center; justify-content: center;
+  width: 22px; height: 22px; margin: 0 3px; padding: 0 !important;
+  border: 1.5px solid #C9C4E6 !important; border-radius: 50%; background: transparent;
+  color: #577399; vertical-align: middle; line-height: 1; cursor: pointer;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .15s cubic-bezier(.22,1,.36,1);
+}
+.pd-icon-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.pd-icon-btn circle { fill: currentColor; stroke-width: 1.4; }
+.info-feature.pd-icon-btn:hover { background: #577399 !important; border-color: #577399 !important; color: #fff; transform: scale(1.08); }
+.remove-feature.pd-icon-btn:hover { background: #F07569 !important; border-color: #F07569 !important; color: #fff; transform: scale(1.08); }
+.pd-icon-btn:active { transform: scale(.9) !important; }
+.pd-icon-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(54,194,211,.45); }
+html[data-theme="dark"] .pd-icon-btn { border-color: #4A5672 !important; color: #C9C4E6; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] .pd-icon-btn { border-color: #4A5672 !important; color: #C9C4E6; }
+}
+.pd-btn-ico { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round; vertical-align: -2px; margin-right: 2px; }
+#backToTopBtn { display: flex !important; align-items: center; justify-content: center; }
+.pd-top-ico { width: 20px; height: 20px; stroke-width: 2.2; margin: 0; }
+.pd-icon-btn.pd-icon-sm { width: 19px; height: 19px; margin-left: 4px; vertical-align: -3px; }
+.pd-icon-btn.pd-icon-sm svg { width: 12px; height: 12px; }
+
+/* ── Footer links: underline grows on hover, colour on hover/click ────────── */
+footer .list-inline-item {
+  position: relative; padding: 2px 4px; border-radius: 6px;
+  transition: color .2s ease, background-color .2s ease, transform .15s cubic-bezier(.22,1,.36,1);
+}
+footer .list-inline-item::after {
+  content: ""; position: absolute; left: 4px; right: 4px; bottom: -1px; height: 2px; border-radius: 2px;
+  background: #36C2D3; transform: scaleX(0); transform-origin: center;
+  transition: transform .25s cubic-bezier(.22,1,.36,1);
+}
+footer .list-inline-item:hover { color: #577399; transform: translateY(-1px); }
+footer .list-inline-item:hover::after { transform: scaleX(1); }
+footer .list-inline-item:active { transform: scale(.95); background-color: rgba(54,194,211,.15); color: #2E3A59; }
+html[data-theme="dark"] footer .list-inline-item:hover { color: #36C2D3; }
+html[data-theme="dark"] footer .list-inline-item:active { color: #DCD6F7; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] footer .list-inline-item:hover { color: #36C2D3; }
+  html[data-theme="system"] footer .list-inline-item:active { color: #DCD6F7; }
+}
+
+/* ── Gender choice: biological symbols, cyan for male, plum for female ────── */
+.pd-sex { display: inline-flex; align-items: center; gap: 4px; transition: color .2s ease; }
+.pd-sex-ico { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round; transition: transform .2s cubic-bezier(.22,1,.36,1); }
+.pd-sex .pd-sex-ico { color: #9AA3AB; }   /* grey until selected */
+#Male   { accent-color: #36C2D3; }
+#Female { accent-color: #B05F9B; }
+.pd-sex:hover .pd-sex-ico { transform: scale(1.15); }
+#Male:checked + .pd-sex-male     { color: #36C2D3; font-weight: 600; }
+#Female:checked + .pd-sex-female { color: #B05F9B; font-weight: 600; }
+html[data-theme="dark"] #Female:checked + .pd-sex-female { color: #D58AC2; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] #Female:checked + .pd-sex-female { color: #D58AC2; }
+}
+
+/* ── Footer info pages: accent chip, coloured emphasis, readable paragraphs ── */
+.pd-info-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; margin-right: 10px; vertical-align: -6px; border-radius: 9px;
+  background: color-mix(in srgb, var(--pd-acc) 18%, transparent); color: var(--pd-acc);
+}
+.pd-info-chip svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pd-info-chip svg circle[r=".45"] { fill: currentColor; }
+.pd-info {
+  width: 100%; line-height: 1.65; padding-left: 14px;
+  border-left: 3px solid var(--pd-acc);
+}
+.pd-info p { margin-bottom: .8em; }
+.pd-info p:last-child { margin-bottom: 0; }
+.pd-info b {
+  color: inherit; font-weight: 700; padding: 0 3px; border-radius: 4px;
+  background: color-mix(in srgb, var(--pd-acc) 20%, transparent);
+}
+.pd-info ol { padding-left: 1.3em; margin: .5em 0 .8em; }
+.pd-info li::marker { color: var(--pd-acc); font-weight: 700; }
+#resultModal .modal-header:has(.pd-info-chip) { border-bottom: 2px solid transparent; }
+#Male:checked + .pd-sex-male, #Male:checked + .pd-sex-male .pd-sex-ico { color: #36C2D3 !important; }
+#Female:checked + .pd-sex-female, #Female:checked + .pd-sex-female .pd-sex-ico { color: #B05F9B !important; }
+html[data-theme="dark"] #Female:checked + .pd-sex-female, html[data-theme="dark"] #Female:checked + .pd-sex-female .pd-sex-ico { color: #D58AC2 !important; }
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] #Female:checked + .pd-sex-female, html[data-theme="system"] #Female:checked + .pd-sex-female .pd-sex-ico { color: #D58AC2 !important; }
+}
+.pd-sex-male:hover .pd-sex-ico { color: #36C2D3; }
+.pd-sex-female:hover .pd-sex-ico { color: #B05F9B; }

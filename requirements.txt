@@ -1,0 +1,12 @@
+# Model development, evaluation and figures (tested with Python 3.13)
+numpy==2.1.0
+pandas==2.2.3
+scipy==1.14.1
+scikit-learn==1.8.0
+xgboost==3.2.0
+lightgbm==4.6.0
+shap==0.50.0
+joblib==1.4.2
+matplotlib==3.10.6
+jupyter
+# The web application has its own pinned list in web_app/requirements.txt
