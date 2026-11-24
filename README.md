@@ -26,7 +26,7 @@ decision threshold (Youden J, 0.611) is fixed on training data before the test s
 **Leakage control.** Missingness is harmonised between PD and healthy controls inside every
 training fold at two levels: the share of participants in whom an item is never recorded,
 and the per-visit recording rate. Imputation is class-balanced. Missingness-only negative
-controls and stress tests check that blank entries carry no label information.
+controls check that blank entries carry no label information.
 
 **Held-out test set (123 participants: 83 PD, 40 HC):** AUC 0.940 (95% CI 0.895–0.977),
 sensitivity 0.916, specificity 0.775, Brier score 0.092 (lower than each sub-model: M1 0.098, M2 0.118, M3 0.103), calibration slope 0.92.
@@ -39,7 +39,7 @@ sensitivity 0.916, specificity 0.775, Brier score 0.092 (lower than each sub-mod
 | `Data_Audit.ipynb` | Item coverage, effect sizes, missingness negative controls |
 | `M3_Redesign_Analysis.ipynb` | Evaluation of the M3 collaborative-filtering variants inside the final pipeline, from which the final M3 (V4) was chosen (run after `Train_3SubModels.ipynb`) |
 | `Various_M1_MiniModel.ipynb`, `Various_M2_MiniModel.ipynb`, `Various_M3_MiniModel.ipynb` | Exploratory search over 12 variants per sub-model |
-| `Train_3SubModels.ipynb` | Cross-fitted training of M1–M3 and the meta-learner; evaluation, calibration, robustness tests; saves the final pipeline |
+| `Train_3SubModels.ipynb` | Cross-fitted training of M1–M3 and the meta-learner; evaluation, calibration; saves the final pipeline |
 | `Predict_New_Patients.ipynb` | Applies the saved pipeline to new records (example: `dummy_patients.csv`, synthetic) |
 | `SHAP_Top10_AllModels.ipynb` | SHAP explanations for the sub-models and the whole pipeline |
 | `min16_lib.py` | Shared library: harmonisation, imputation, sub-models, stacking, metrics |
